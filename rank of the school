@@ -1,0 +1,17 @@
+import bs4
+from bs4 import BeautifulSoup
+import requests
+
+
+r=requests.get("http://www.zuihaodaxue.cn/zuihaodaxuepaiming2019.html")
+r.encoding=r.apparent_encoding
+demo=r.text
+
+
+soup=BeautifulSoup(demo,"html.parser")
+ulist=[]
+for ir in soup.find("tbody").children:
+    if isinstance(ir,bs4.element.Tag):
+        tds=ir("td")
+        ulist.append(tds[0].string,tds[1].string,tds[2].string])
+print(ulist)
